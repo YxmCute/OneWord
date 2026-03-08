@@ -1,0 +1,32 @@
+CREATE TABLE current_poem (
+    slot TEXT NOT NULL PRIMARY KEY,
+    poem_id TEXT NOT NULL,
+    content TEXT NOT NULL,
+    title TEXT NOT NULL,
+    author TEXT NOT NULL,
+    dynasty TEXT NOT NULL,
+    popularity INTEGER,
+    full_text_json TEXT NOT NULL,
+    translation_json TEXT,
+    fetched_at_epoch_ms INTEGER NOT NULL
+);
+
+selectHomePoem:
+SELECT *
+FROM current_poem
+WHERE slot = 'home';
+
+replaceHomePoem:
+INSERT OR REPLACE INTO current_poem(
+    slot,
+    poem_id,
+    content,
+    title,
+    author,
+    dynasty,
+    popularity,
+    full_text_json,
+    translation_json,
+    fetched_at_epoch_ms
+)
+VALUES ('home', ?, ?, ?, ?, ?, ?, ?, ?, ?);

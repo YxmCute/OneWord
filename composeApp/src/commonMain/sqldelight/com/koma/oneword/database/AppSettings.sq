@@ -1,0 +1,42 @@
+CREATE TABLE app_settings (
+    id INTEGER NOT NULL PRIMARY KEY,
+    user_token TEXT,
+    theme_mode TEXT NOT NULL DEFAULT 'SYSTEM',
+    theme_seed_hex TEXT NOT NULL DEFAULT '#0F5A46',
+    last_sync_epoch_ms INTEGER
+);
+
+selectSettings:
+SELECT *
+FROM app_settings
+WHERE id = 0;
+
+ensureDefaultSettings:
+INSERT OR IGNORE INTO app_settings(
+    id,
+    user_token,
+    theme_mode,
+    theme_seed_hex,
+    last_sync_epoch_ms
+)
+VALUES (0, NULL, 'SYSTEM', '#0F5A46', NULL);
+
+updateToken:
+UPDATE app_settings
+SET user_token = ?
+WHERE id = 0;
+
+updateThemeMode:
+UPDATE app_settings
+SET theme_mode = ?
+WHERE id = 0;
+
+updateThemeSeed:
+UPDATE app_settings
+SET theme_seed_hex = ?
+WHERE id = 0;
+
+updateLastSync:
+UPDATE app_settings
+SET last_sync_epoch_ms = ?
+WHERE id = 0;

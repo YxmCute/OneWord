@@ -1,0 +1,36 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Gradle / Kotlin
+.gradle/
+.kotlin/
+build/
+**/build/
+out/
+
+# Android / Android Studio
+.idea/
+*.iml
+captures/
+local.properties
+.cxx/
+externalNativeBuild/
+
+# Xcode / Apple
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xccheckout
+*.xcscmblueprint
+iosApp/.DS_Store
+iosApp/iosApp.xcodeproj/project.xcworkspace/
+iosApp/iosApp.xcodeproj/xcuserdata/
+
+# Compose Desktop packaging
+composeApp/desktop-assets/icon.iconset/
+composeApp/build/compose/
+
+# Logs and crash reports
+*.log
+*.hprof
