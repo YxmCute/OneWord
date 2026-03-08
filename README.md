@@ -6,6 +6,10 @@
 
 首页从今日诗词接口获取一句古诗词，支持本地缓存、动态主题取色、桌面端打包，以及 iOS 模拟器容器运行。
 
+仓库地址：
+
+- GitHub: [YxmCute/OneWord](https://github.com/YxmCute/OneWord)
+
 ## 技术栈
 
 - Kotlin Multiplatform
@@ -50,7 +54,6 @@
 ### 1. Android
 
 ```bash
-cd /Users/koma/AndroidStudioProjects/OneWord
 ./gradlew :composeApp:assembleDebug
 ```
 
@@ -61,7 +64,6 @@ APK 输出：
 ### 2. macOS Desktop
 
 ```bash
-cd /Users/koma/AndroidStudioProjects/OneWord
 ./gradlew :composeApp:packageDmg
 ```
 
@@ -74,7 +76,6 @@ DMG 输出：
 推荐使用一键脚本先清理旧调试进程、重启模拟器并重新安装：
 
 ```bash
-cd /Users/koma/AndroidStudioProjects/OneWord
 ./scripts/reset_and_run_ios.sh
 ```
 
@@ -88,6 +89,12 @@ cd /Users/koma/AndroidStudioProjects/OneWord
 
 ```bash
 ./scripts/run_ios_simulator.sh
+```
+
+如果需要导出开发用 IPA：
+
+```bash
+TEAM_ID=YOUR_TEAM_ID BUNDLE_ID=com.koma.oneword.iosApp ./scripts/build_ios_ipa.sh
 ```
 
 ## iOS 说明
@@ -110,10 +117,41 @@ xcodegen generate
 
 - `scripts/open_ios_fresh.sh`
   - 重生成 Xcode 工程并清理 `DerivedData`
+  - 适合 Xcode 工程文件或缓存状态异常时使用
+  - 用法：
+
+```bash
+./scripts/open_ios_fresh.sh
+```
 - `scripts/run_ios_simulator.sh`
-  - 命令行 build/install/launch iOS 模拟器容器
+  - 命令行 build / install / launch iOS 模拟器容器
+  - 默认启动 `iPhone 17 Pro`
+  - 支持覆盖模拟器：
+
+```bash
+DEVICE_ID=<simulator-device-id> ./scripts/run_ios_simulator.sh
+```
 - `scripts/reset_and_run_ios.sh`
   - 额外清理旧的 `debugserver` / `OneWord` 残留进程，适合 iOS 调试状态异常时使用
+  - 会重启指定模拟器、卸载旧 App、重新 build/install/launch
+  - 支持覆盖模拟器或包名：
+
+```bash
+DEVICE_ID=<simulator-device-id> BUNDLE_ID=com.koma.oneword.iosApp ./scripts/reset_and_run_ios.sh
+```
+- `scripts/build_ios_ipa.sh`
+  - 归档并导出开发用 IPA
+  - 需要已配置可用的 Apple Developer Team
+  - 最少参数：
+
+```bash
+TEAM_ID=YOUR_TEAM_ID BUNDLE_ID=com.koma.oneword.iosApp ./scripts/build_ios_ipa.sh
+```
+  - 常用可选变量：
+    - `CONFIGURATION=Release`
+    - `EXPORT_METHOD=development`
+    - `ARCHIVE_PATH=...`
+    - `EXPORT_PATH=...`
 
 ## 数据来源
 
@@ -129,17 +167,6 @@ xcodegen generate
 ./gradlew :composeApp:assembleDebug
 ./gradlew :composeApp:packageDmg
 ./gradlew :composeApp:linkDebugFrameworkIosSimulatorArm64
-```
-
-## Git 状态
-
-当前仓库已初始化并有本地提交历史，但还没有配置 GitHub 远程。
-
-如需推送到 GitHub：
-
-```bash
-git remote add origin <your-github-repo-url>
-git push -u origin main
 ```
 
 ## Release Notes

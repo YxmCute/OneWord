@@ -1,8 +1,8 @@
 #!/bin/zsh
 set -euo pipefail
-ROOT="/Users/koma/AndroidStudioProjects/OneWord"
-DEVICE_ID="2A0E9031-B775-4952-BB7C-E725DF63BF02"
-BUNDLE_ID="com.koma.oneword.iosApp"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+DEVICE_ID="${DEVICE_ID:-2A0E9031-B775-4952-BB7C-E725DF63BF02}"
+BUNDLE_ID="${BUNDLE_ID:-com.koma.oneword.iosApp}"
 cd "$ROOT/iosApp"
 xcodegen generate >/dev/null
 cd "$ROOT"

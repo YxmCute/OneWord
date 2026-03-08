@@ -23,17 +23,37 @@
 
 ## iOS
 
-当前 iOS 通过 Xcode + Simulator 运行，不提供签名后的 IPA 安装包。
+当前 iOS 通过 Xcode + Simulator 运行，不提供签名后的发布 IPA。
 
-推荐命令：
+推荐先重置并运行模拟器容器：
 
 ```bash
-cd /Users/koma/AndroidStudioProjects/OneWord
 ./scripts/reset_and_run_ios.sh
 ```
 
-如果只想打开 Xcode 工程：
+如果只想打开 Xcode 工程并清空 `DerivedData`：
 
 ```bash
 ./scripts/open_ios_fresh.sh
 ```
+
+如果只想命令行构建并启动模拟器：
+
+```bash
+./scripts/run_ios_simulator.sh
+```
+
+如果需要导出开发用 IPA：
+
+```bash
+TEAM_ID=YOUR_TEAM_ID BUNDLE_ID=com.koma.oneword.iosApp ./scripts/build_ios_ipa.sh
+```
+
+说明：
+
+- `reset_and_run_ios.sh`
+  - 适合调试残留、黑屏、安装状态异常时使用
+- `run_ios_simulator.sh`
+  - 适合已经有稳定模拟器环境时快速重跑
+- `build_ios_ipa.sh`
+  - 适合需要真机开发包时手动归档导出
