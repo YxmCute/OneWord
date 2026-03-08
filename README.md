@@ -103,7 +103,7 @@ TEAM_ID=YOUR_TEAM_ID BUNDLE_ID=com.koma.oneword.iosApp ./scripts/build_ios_ipa.s
 - 重新生成工程：
 
 ```bash
-cd /Users/koma/AndroidStudioProjects/OneWord/iosApp
+cd iosApp
 xcodegen generate
 ```
 
