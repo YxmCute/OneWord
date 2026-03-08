@@ -145,3 +145,7 @@ git push -u origin main
 ## Release Notes
 
 - [v0.1.0](docs/releases/v0.1.0.md)
+
+## Install
+
+- [Installation Guide](docs/INSTALL.md)
