@@ -1,0 +1,110 @@
+name: Release Assets
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to upload assets to
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  android_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Ensure Gradle wrapper is executable
+        run: chmod +x gradlew
+
+      - name: Prepare Android SDK
+        shell: bash
+        run: |
+          SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
+          if [ -z "$SDK_ROOT" ]; then
+            echo "ANDROID_SDK_ROOT/ANDROID_HOME is not set" >&2
+            exit 1
+          fi
+
+          echo "sdk.dir=$SDK_ROOT" > local.properties
+
+          SDKMANAGER=$(find "$SDK_ROOT" -path '*/cmdline-tools/*/bin/sdkmanager' | head -1)
+          if [ -n "$SDKMANAGER" ]; then
+            yes | "$SDKMANAGER" --licenses >/dev/null || true
+            "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
+          fi
+
+      - name: Build Android APK
+        run: ./gradlew :composeApp:assembleDebug
+
+      - name: Upload Android release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_TAG: ${{ github.event.release.tag_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+        shell: bash
+        run: |
+          TAG_NAME="$EVENT_TAG"
+          if [ -z "$TAG_NAME" ]; then
+            TAG_NAME="$INPUT_TAG"
+          fi
+          test -n "$TAG_NAME"
+
+          ASSET="OneWord-Android-${TAG_NAME}.apk"
+          mkdir -p dist
+          cp composeApp/build/outputs/apk/debug/composeApp-debug.apk "dist/$ASSET"
+
+          gh release view "$TAG_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
+            gh release create "$TAG_NAME" --repo "$GITHUB_REPOSITORY" --title "$TAG_NAME" --generate-notes
+
+          gh release upload "$TAG_NAME" "dist/$ASSET" --repo "$GITHUB_REPOSITORY" --clobber
+
+  macos_release:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Ensure Gradle wrapper is executable
+        run: chmod +x gradlew
+
+      - name: Build macOS DMG
+        run: ./gradlew :composeApp:packageDmg
+
+      - name: Upload macOS release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_TAG: ${{ github.event.release.tag_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+        shell: bash
+        run: |
+          TAG_NAME="$EVENT_TAG"
+          if [ -z "$TAG_NAME" ]; then
+            TAG_NAME="$INPUT_TAG"
+          fi
+          test -n "$TAG_NAME"
+
+          ASSET="OneWord-macOS-${TAG_NAME}.dmg"
+          mkdir -p dist
+          cp composeApp/build/compose/binaries/main/dmg/OneWord-1.0.0.dmg "dist/$ASSET"
+
+          gh release view "$TAG_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
+            gh release create "$TAG_NAME" --repo "$GITHUB_REPOSITORY" --title "$TAG_NAME" --generate-notes
+
+          gh release upload "$TAG_NAME" "dist/$ASSET" --repo "$GITHUB_REPOSITORY" --clobber
