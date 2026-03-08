@@ -5,6 +5,7 @@ import androidx.compose.runtime.remember
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import com.koma.oneword.database.OneWordDatabase
 import kotlinx.cinterop.ExperimentalForeignApi
+import co.touchlab.sqliter.DatabaseConfiguration
 import platform.Foundation.NSApplicationSupportDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
@@ -14,25 +15,32 @@ actual object AppContainerFactory {
     @OptIn(ExperimentalForeignApi::class)
     @Composable
     actual fun rememberAppContainer(): AppContainer {
-        return remember {
-            println("iOS AppContainerFactory: create start")
-            val fileManager = NSFileManager.defaultManager
-            val appSupportUrl = fileManager.URLForDirectory(
-                directory = NSApplicationSupportDirectory,
-                inDomain = NSUserDomainMask,
-                appropriateForURL = null,
-                create = true,
-                error = null,
-            ) ?: error("Failed to resolve Application Support directory")
-            val databaseUrl: NSURL = appSupportUrl.URLByAppendingPathComponent("oneword.db")!!
-            println("iOS AppContainerFactory: database path = ${databaseUrl.path}")
-            val driver = NativeSqliteDriver(
-                schema = OneWordDatabase.Schema,
-                name = databaseUrl.path ?: "oneword.db",
-            )
-            AppContainer.create(driver).also {
-                println("iOS AppContainerFactory: create success")
-            }
-        }
+        return remember { createIosAppContainer() }
     }
+}
+
+@OptIn(ExperimentalForeignApi::class)
+fun createIosAppContainer(): AppContainer {
+    val fileManager = NSFileManager.defaultManager
+    val appSupportUrl = fileManager.URLForDirectory(
+        directory = NSApplicationSupportDirectory,
+        inDomain = NSUserDomainMask,
+        appropriateForURL = null,
+        create = true,
+        error = null,
+    ) ?: error("Failed to resolve Application Support directory")
+    val databaseUrl: NSURL = appSupportUrl.URLByAppendingPathComponent("oneword.db")!!
+    val basePath = databaseUrl.path?.substringBeforeLast("/", "") ?: error("Failed to resolve database base path")
+    val driver = NativeSqliteDriver(
+        schema = OneWordDatabase.Schema,
+        name = "oneword.db",
+        onConfiguration = { configuration ->
+            configuration.copy(
+                extendedConfig = configuration.extendedConfig.copy(
+                    basePath = basePath,
+                ),
+            )
+        },
+    )
+    return AppContainer.create(driver)
 }
