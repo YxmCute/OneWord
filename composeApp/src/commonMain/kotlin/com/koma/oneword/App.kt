@@ -13,6 +13,7 @@ import com.koma.oneword.app.AppContainerFactory
 import com.koma.oneword.presentation.HomeViewModel
 import com.koma.oneword.presentation.SettingsViewModel
 import com.koma.oneword.theme.OneWordTheme
+import com.koma.oneword.ui.AppInsetMode
 import com.koma.oneword.ui.components.ThemePickerOverlay
 import com.koma.oneword.ui.home.HomeScreen
 import com.koma.oneword.ui.settings.SettingsScreen
@@ -25,6 +26,7 @@ private enum class Screen {
 @Composable
 fun OneWordApp(
     container: AppContainer = AppContainerFactory.rememberAppContainer(),
+    insetMode: AppInsetMode = AppInsetMode.SAFE_DRAWING,
 ) {
     DisposableEffect(container) {
         onDispose { container.close() }
@@ -60,6 +62,7 @@ fun OneWordApp(
         when (screen) {
             Screen.HOME -> HomeScreen(
                 uiState = homeState,
+                insetMode = insetMode,
                 onRefresh = homeViewModel::refresh,
                 onToggleExpand = homeViewModel::toggleExpand,
                 onOpenThemePicker = homeViewModel::openThemePicker,
@@ -68,6 +71,7 @@ fun OneWordApp(
             )
             Screen.SETTINGS -> SettingsScreen(
                 settings = settingsState,
+                insetMode = insetMode,
                 onBack = { screen = Screen.HOME },
                 onUpdateMode = settingsViewModel::updateThemeMode,
                 onOpenThemePicker = homeViewModel::openThemePicker,

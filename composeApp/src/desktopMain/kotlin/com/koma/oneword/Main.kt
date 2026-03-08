@@ -25,6 +25,7 @@ import com.koma.oneword.app.AppContainerFactory
 import com.koma.oneword.presentation.HomeViewModel
 import com.koma.oneword.presentation.SettingsViewModel
 import com.koma.oneword.theme.OneWordTheme
+import com.koma.oneword.ui.AppInsetMode
 import com.koma.oneword.ui.components.ThemePickerOverlay
 import com.koma.oneword.ui.home.HomeScreen
 import com.koma.oneword.ui.settings.SettingsScreen
@@ -135,6 +136,7 @@ private fun FrameWindowScope.DesktopApp(
         when (screen) {
             DesktopScreen.HOME -> HomeScreen(
                 uiState = homeState,
+                insetMode = AppInsetMode.SAFE_DRAWING,
                 onRefresh = homeViewModel::refresh,
                 onToggleExpand = homeViewModel::toggleExpand,
                 onOpenThemePicker = homeViewModel::openThemePicker,
@@ -143,6 +145,7 @@ private fun FrameWindowScope.DesktopApp(
             )
             DesktopScreen.SETTINGS -> SettingsScreen(
                 settings = settingsState,
+                insetMode = AppInsetMode.SAFE_DRAWING,
                 onBack = { screen = DesktopScreen.HOME },
                 onUpdateMode = settingsViewModel::updateThemeMode,
                 onOpenThemePicker = homeViewModel::openThemePicker,

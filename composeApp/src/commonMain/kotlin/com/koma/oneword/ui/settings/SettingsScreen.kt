@@ -4,11 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -28,11 +26,15 @@ import com.koma.oneword.model.AppThemeSettings
 import com.koma.oneword.model.ThemeMode
 import com.koma.oneword.theme.LocalOneWordTheme
 import com.koma.oneword.theme.toColorOrDefault
+import com.koma.oneword.ui.AppInsetMode
+import com.koma.oneword.ui.contentInsets
+import com.koma.oneword.ui.headerInsets
 import com.koma.oneword.ui.components.PosterBackground
 
 @Composable
 fun SettingsScreen(
     settings: AppThemeSettings,
+    insetMode: AppInsetMode,
     onBack: () -> Unit,
     onUpdateMode: (ThemeMode) -> Unit,
     onOpenThemePicker: () -> Unit,
@@ -43,7 +45,7 @@ fun SettingsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .windowInsetsPadding(WindowInsets.safeDrawing)
+                .windowInsetsPadding(insetMode.contentInsets())
                 .padding(20.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -62,7 +64,9 @@ fun SettingsScreen(
                     verticalArrangement = Arrangement.spacedBy(20.dp),
                 ) {
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .windowInsetsPadding(insetMode.headerInsets()),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically,
                     ) {

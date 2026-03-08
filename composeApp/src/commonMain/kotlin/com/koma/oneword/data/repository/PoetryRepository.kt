@@ -23,27 +23,16 @@ class PoetryRepository(
     private val database: OneWordDatabase,
     private val json: Json,
 ) {
+    fun currentHome(): HomeData? = database.currentPoemQueries
+        .selectHomePoem()
+        .executeAsOneOrNull()
+        ?.let(::rowToHomeData)
+
     fun observeHome(): Flow<HomeData?> = database.currentPoemQueries
         .selectHomePoem()
         .asFlow()
         .mapToOneOrNull(Dispatchers.Default)
-        .map { row ->
-            row?.let {
-                HomeData(
-                    poem = Poem(
-                        id = it.poem_id,
-                        content = it.content,
-                        title = it.title,
-                        author = it.author,
-                        dynasty = it.dynasty,
-                        popularity = it.popularity,
-                        fullText = json.decodeFromString(it.full_text_json),
-                        translation = it.translation_json?.let { value -> json.decodeFromString(value) } ?: emptyList(),
-                    ),
-                    fetchedAtEpochMs = it.fetched_at_epoch_ms,
-                )
-            }
-        }
+        .map { row -> row?.let(::rowToHomeData) }
 
     suspend fun refresh(force: Boolean): RefreshResult = withContext(Dispatchers.Default) {
         val cached = database.currentPoemQueries.selectHomePoem().executeAsOneOrNull()
@@ -104,4 +93,18 @@ class PoetryRepository(
         is ApiException -> error.message?.contains("token", ignoreCase = true) == true
         else -> false
     }
+
+    private fun rowToHomeData(row: com.koma.oneword.database.Current_poem): HomeData = HomeData(
+        poem = Poem(
+            id = row.poem_id,
+            content = row.content,
+            title = row.title,
+            author = row.author,
+            dynasty = row.dynasty,
+            popularity = row.popularity,
+            fullText = json.decodeFromString(row.full_text_json),
+            translation = row.translation_json?.let { value -> json.decodeFromString(value) } ?: emptyList(),
+        ),
+        fetchedAtEpochMs = row.fetched_at_epoch_ms,
+    )
 }

@@ -5,11 +5,13 @@ import com.koma.oneword.data.api.PoetryApi
 import com.koma.oneword.data.repository.PoetryRepository
 import com.koma.oneword.data.repository.SettingsRepository
 import com.koma.oneword.database.OneWordDatabase
+import com.koma.oneword.util.PlatformLogger
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -44,9 +46,14 @@ class AppContainer private constructor(
                 }
                 install(Logging) {
                     logger = object : Logger {
-                        override fun log(message: String) = println(message)
+                        override fun log(message: String) {
+                            PlatformLogger.info(tag = "OneWordHttp", message = message)
+                        }
                     }
-                    level = LogLevel.INFO
+                    level = LogLevel.ALL
+                    sanitizeHeader { header ->
+                        header == "X-User-Token" || header == HttpHeaders.Authorization
+                    }
                 }
             }
             val settingsRepository = SettingsRepository(database)
