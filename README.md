@@ -1,5 +1,7 @@
 # OneWord
 
+[![CI](https://github.com/YxmCute/OneWord/actions/workflows/ci.yml/badge.svg)](https://github.com/YxmCute/OneWord/actions/workflows/ci.yml)
+
 一个基于 Kotlin Multiplatform + Compose Multiplatform 的三端诗词应用，目标平台为 Android、iOS、macOS。
 
 首页从今日诗词接口获取一句古诗词，支持本地缓存、动态主题取色、桌面端打包，以及 iOS 模拟器容器运行。
@@ -139,3 +141,7 @@ xcodegen generate
 git remote add origin <your-github-repo-url>
 git push -u origin main
 ```
+
+## Release Notes
+
+- [v0.1.0](docs/releases/v0.1.0.md)
