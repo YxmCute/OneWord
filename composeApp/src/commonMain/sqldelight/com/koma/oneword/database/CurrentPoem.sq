@@ -1,3 +1,5 @@
+-- Stores the single cached poem shown on the poster-style home screen.
+
 CREATE TABLE current_poem (
     slot TEXT NOT NULL PRIMARY KEY,
     poem_id TEXT NOT NULL,

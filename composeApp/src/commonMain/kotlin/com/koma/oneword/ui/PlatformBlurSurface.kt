@@ -1,5 +1,9 @@
 package com.koma.oneword.ui
 
+/**
+ * Expected API for platform-specific blur layers behind the shared poster background.
+ */
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 

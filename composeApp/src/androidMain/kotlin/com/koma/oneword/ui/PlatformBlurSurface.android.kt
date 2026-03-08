@@ -1,5 +1,9 @@
 package com.koma.oneword.ui
 
+/**
+ * Android implementation of the decorative blur overlay used behind the poster layout.
+ */
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

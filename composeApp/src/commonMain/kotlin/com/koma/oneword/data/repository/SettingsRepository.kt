@@ -1,5 +1,9 @@
 package com.koma.oneword.data.repository
 
+/**
+ * Repository for observing and updating persisted app settings such as theme and token state.
+ */
+
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToOne
 import com.koma.oneword.database.OneWordDatabase

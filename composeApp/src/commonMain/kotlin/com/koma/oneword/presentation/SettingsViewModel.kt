@@ -1,5 +1,9 @@
 package com.koma.oneword.presentation
 
+/**
+ * Simple state holder for settings screen theme controls.
+ */
+
 import com.koma.oneword.data.repository.SettingsRepository
 import com.koma.oneword.model.AppThemeSettings
 import com.koma.oneword.model.ThemeMode

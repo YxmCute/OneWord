@@ -1,5 +1,9 @@
 package com.koma.oneword.util
 
+/**
+ * iOS time helpers for formatting timestamps shown in shared UI.
+ */
+
 import platform.Foundation.NSDate
 import platform.Foundation.NSDateFormatter
 import platform.Foundation.timeIntervalSince1970

@@ -1,5 +1,9 @@
 package com.koma.oneword.ui
 
+/**
+ * Desktop blur overlay implementation for the poster background.
+ */
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

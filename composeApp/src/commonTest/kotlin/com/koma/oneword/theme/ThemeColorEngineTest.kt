@@ -1,5 +1,9 @@
 package com.koma.oneword.theme
 
+/**
+ * Tests that the generated color scheme stays readable across light and dark inputs.
+ */
+
 import androidx.compose.ui.graphics.luminance
 import com.koma.oneword.model.ThemeMode
 import kotlin.test.Test

@@ -1,6 +1,7 @@
 import UIKit
 import OneWordShared
 
+/// Scene lifecycle bridge that attaches the shared Compose view controller to the iOS window.
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 

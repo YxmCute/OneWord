@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Archives the iOS container app and exports a development IPA using the provided team and bundle identifiers.
+# This is intended for manual development distribution rather than App Store submission.
+
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"

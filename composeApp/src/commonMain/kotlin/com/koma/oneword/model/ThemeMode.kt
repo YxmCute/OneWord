@@ -1,5 +1,9 @@
 package com.koma.oneword.model
 
+/**
+ * User-selectable theme modes with storage-safe parsing.
+ */
+
 enum class ThemeMode {
     SYSTEM,
     LIGHT,

@@ -1,4 +1,6 @@
 #!/bin/zsh
+# Builds the iOS simulator app, installs it on the configured simulator, and launches it without a full reset.
+
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DEVICE_ID="${DEVICE_ID:-2A0E9031-B775-4952-BB7C-E725DF63BF02}"

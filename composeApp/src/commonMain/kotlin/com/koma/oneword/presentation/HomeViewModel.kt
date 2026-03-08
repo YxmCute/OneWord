@@ -1,5 +1,9 @@
 package com.koma.oneword.presentation
 
+/**
+ * Home screen state holder that drives loading, refresh, expand/collapse, and reveal animations.
+ */
+
 import com.koma.oneword.data.repository.PoetryRepository
 import com.koma.oneword.data.repository.SettingsRepository
 import com.koma.oneword.model.HomeData
@@ -97,6 +101,8 @@ class HomeViewModel(
             handleRefreshResult(result)
             if (result is RefreshResult.Success) {
                 val currentPoemId = poetryRepository.currentHome()?.poem?.id
+                // Only replay the typewriter animation when a manual refresh actually produced
+                // a different poem; otherwise the user would see motion for unchanged content.
                 if (currentPoemId != null && currentPoemId != previousPoemId) {
                     startRevealAnimation()
                 } else {
@@ -137,6 +143,8 @@ class HomeViewModel(
         refreshAnimationKey.value += 1L
         isPoemRevealRunning.value = true
         revealJob = scope.launch {
+            // Keep metadata hidden until the main line reveal finishes so the eye focuses on
+            // the refreshed sentence first.
             delay(500)
             isPoemRevealRunning.value = false
         }

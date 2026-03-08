@@ -1,5 +1,9 @@
 package com.koma.oneword.app
 
+/**
+ * Desktop-specific container factory that stores the SQLDelight database in Application Support.
+ */
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver

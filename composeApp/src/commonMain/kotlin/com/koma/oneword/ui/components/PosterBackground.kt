@@ -1,5 +1,9 @@
 package com.koma.oneword.ui.components
 
+/**
+ * Shared decorative background with gradients, blobs, and the platform blur layer.
+ */
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope

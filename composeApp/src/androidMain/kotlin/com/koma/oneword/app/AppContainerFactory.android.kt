@@ -1,5 +1,9 @@
 package com.koma.oneword.app
 
+/**
+ * Android-specific container factory that wires the SQLDelight driver with the application context.
+ */
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext

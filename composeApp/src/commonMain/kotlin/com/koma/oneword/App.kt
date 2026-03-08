@@ -1,5 +1,9 @@
 package com.koma.oneword
 
+/**
+ * Shared app root that wires theme, screen switching, and global overlays.
+ */
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect

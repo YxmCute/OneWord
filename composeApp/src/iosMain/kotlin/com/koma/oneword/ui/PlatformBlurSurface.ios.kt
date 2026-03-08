@@ -1,5 +1,9 @@
 package com.koma.oneword.ui
 
+/**
+ * iOS blur overlay implementation used by the shared poster background.
+ */
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

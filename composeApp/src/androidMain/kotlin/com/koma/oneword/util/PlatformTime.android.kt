@@ -1,5 +1,9 @@
 package com.koma.oneword.util
 
+/**
+ * Android/JVM time helpers for formatting last-updated timestamps.
+ */
+
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter

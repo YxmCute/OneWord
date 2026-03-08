@@ -1,5 +1,9 @@
 package com.koma.oneword.ui.settings
 
+/**
+ * Settings screen for theme mode, seed color access, and app metadata.
+ */
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

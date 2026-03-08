@@ -1,4 +1,6 @@
 #!/bin/zsh
+# Resets the iOS simulator environment, removes stale debugger processes, rebuilds, reinstalls, and relaunches the app.
+
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DEVICE_ID="${DEVICE_ID:-2A0E9031-B775-4952-BB7C-E725DF63BF02}"

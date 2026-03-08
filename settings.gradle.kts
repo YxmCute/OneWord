@@ -1,3 +1,5 @@
+// Central repository and module configuration for the OneWord workspace.
+
 pluginManagement {
     repositories {
         google()

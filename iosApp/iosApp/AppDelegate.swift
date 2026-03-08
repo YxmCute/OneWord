@@ -1,5 +1,6 @@
 import UIKit
 
+/// Application entry point that hands scene creation to SceneDelegate.
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(

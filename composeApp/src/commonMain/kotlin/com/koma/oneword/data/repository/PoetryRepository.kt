@@ -1,5 +1,9 @@
 package com.koma.oneword.data.repository
 
+/**
+ * Repository that coordinates token refresh, sentence loading, caching, and offline fallback.
+ */
+
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.koma.oneword.data.api.ApiException

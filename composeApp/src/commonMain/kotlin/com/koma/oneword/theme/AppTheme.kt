@@ -1,5 +1,9 @@
 package com.koma.oneword.theme
 
+/**
+ * Shared Material theme bridge that exposes the generated poster color scheme.
+ */
+
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme

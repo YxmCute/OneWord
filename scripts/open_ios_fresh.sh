@@ -1,4 +1,6 @@
 #!/bin/zsh
+# Regenerates the Xcode project, clears DerivedData, and opens a clean iOS workspace window.
+
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT/iosApp"

@@ -1,5 +1,9 @@
 package com.koma.oneword.ui
 
+/**
+ * Platform-aware safe-area policy for shared screens.
+ */
+
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.only

@@ -1,5 +1,9 @@
 package com.koma.oneword.app
 
+/**
+ * Shared dependency container that creates the HTTP client, database, repositories, and app scope.
+ */
+
 import app.cash.sqldelight.db.SqlDriver
 import com.koma.oneword.data.api.PoetryApi
 import com.koma.oneword.data.repository.PoetryRepository
@@ -50,7 +54,10 @@ class AppContainer private constructor(
                             PlatformLogger.info(tag = "OneWordHttp", message = message)
                         }
                     }
+                    // FULL logging is intentional here so request and response bodies are visible in
+                    // platform logs while debugging API issues.
                     level = LogLevel.ALL
+                    // Keep secrets out of the logs even when body/header logging is enabled.
                     sanitizeHeader { header ->
                         header == "X-User-Token" || header == HttpHeaders.Authorization
                     }

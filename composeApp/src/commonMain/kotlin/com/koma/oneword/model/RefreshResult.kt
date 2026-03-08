@@ -1,5 +1,9 @@
 package com.koma.oneword.model
 
+/**
+ * Repository refresh outcomes used by the view model to update UI feedback.
+ */
+
 sealed interface RefreshResult {
     data object Success : RefreshResult
 

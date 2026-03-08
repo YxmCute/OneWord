@@ -1,5 +1,9 @@
 package com.koma.oneword.ui.home
 
+/**
+ * Poster-style home screen that renders the poem, metadata, expansion panel, and refresh animation.
+ */
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
@@ -64,6 +68,7 @@ fun HomeScreen(
     onDismissError: () -> Unit,
 ) {
     val scheme = LocalOneWordTheme.current.scheme
+    // Metadata and the full-text region stay hidden while the main sentence reveal is running.
     val showMetadata = !uiState.isPoemRevealRunning
 
     PosterBackground(scheme = scheme) {
@@ -98,6 +103,8 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .weight(1f)
                     .padding(top = 20.dp),
+                // Keep the poster card top-anchored so expanding/collapsing the full text does
+                // not re-center the whole card and look like a dropped frame.
                 contentAlignment = Alignment.TopCenter,
             ) {
                 Surface(
@@ -176,6 +183,8 @@ fun HomeScreen(
 
                                         AnimatedVisibility(
                                             visible = uiState.showFullText,
+                                            // Collapse from the top so the last line disappears
+                                            // smoothly instead of snapping the card height.
                                             enter = expandVertically(expandFrom = Alignment.Top) + fadeIn(tween(200)),
                                             exit = shrinkVertically(shrinkTowards = Alignment.Top) + fadeOut(tween(200)),
                                         ) {
@@ -297,6 +306,7 @@ private fun AnimatedPoemText(
             progress.snapTo(0f)
             progress.animateTo(
                 targetValue = 1f,
+                // Fixed-duration typing so refresh feedback feels deliberate rather than random.
                 animationSpec = tween(durationMillis = 500, easing = LinearEasing),
             )
         } else {

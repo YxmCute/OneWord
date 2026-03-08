@@ -1,5 +1,9 @@
 package com.koma.oneword.util
 
+/**
+ * Android logger bridge that routes structured app logs into logcat.
+ */
+
 import android.util.Log
 
 actual object PlatformLogger {

@@ -1,5 +1,9 @@
 package com.koma.oneword.theme
 
+/**
+ * Color parsing and conversion helpers used by the dynamic theme engine.
+ */
+
 import androidx.compose.ui.graphics.Color
 import kotlin.math.abs
 import kotlin.math.max

@@ -1,5 +1,9 @@
 package com.koma.oneword.data.api
 
+/**
+ * Client wrapper and DTOs for the Jinrishici token and sentence endpoints.
+ */
+
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

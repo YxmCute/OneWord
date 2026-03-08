@@ -1,5 +1,9 @@
 package com.koma.oneword.model
 
+/**
+ * Domain model used by the UI to render a poem and its optional translation.
+ */
+
 data class Poem(
     val id: String,
     val content: String,

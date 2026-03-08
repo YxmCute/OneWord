@@ -1,5 +1,9 @@
 package com.koma.oneword.theme
 
+/**
+ * Builds the app color scheme from a single user-selected seed color.
+ */
+
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.luminance

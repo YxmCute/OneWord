@@ -1,5 +1,9 @@
 package com.koma.oneword.app
 
+/**
+ * iOS-specific container factory that maps SQLDelight storage into Application Support.
+ */
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
@@ -30,6 +34,7 @@ fun createIosAppContainer(): AppContainer {
         error = null,
     ) ?: error("Failed to resolve Application Support directory")
     val databaseUrl: NSURL = appSupportUrl.URLByAppendingPathComponent("oneword.db")!!
+    // SQLiter expects the file name and base directory separately on Apple targets.
     val basePath = databaseUrl.path?.substringBeforeLast("/", "") ?: error("Failed to resolve database base path")
     val driver = NativeSqliteDriver(
         schema = OneWordDatabase.Schema,

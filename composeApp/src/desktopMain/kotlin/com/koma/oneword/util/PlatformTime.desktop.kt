@@ -1,5 +1,9 @@
 package com.koma.oneword.util
 
+/**
+ * Desktop/JVM time helpers for UI timestamps.
+ */
+
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter

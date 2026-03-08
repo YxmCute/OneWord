@@ -1,5 +1,9 @@
 package com.koma.oneword.ui.components
 
+/**
+ * Modal color picker used to preview and persist the home poster seed color.
+ */
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

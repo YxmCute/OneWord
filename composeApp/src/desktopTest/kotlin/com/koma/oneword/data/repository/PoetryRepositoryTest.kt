@@ -1,5 +1,9 @@
 package com.koma.oneword.data.repository
 
+/**
+ * Repository tests covering token acquisition, caching, and offline fallback behavior.
+ */
+
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import com.koma.oneword.data.api.PoetryApi
 import com.koma.oneword.database.OneWordDatabase

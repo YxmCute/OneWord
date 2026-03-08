@@ -1,5 +1,9 @@
 package com.koma.oneword
 
+/**
+ * Desktop entry point that adds window chrome, menus, shortcuts, and mounts the shared UI.
+ */
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
